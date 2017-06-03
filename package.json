@@ -1,0 +1,14 @@
+{
+  "name": "thespookinghour",
+  "version": "1.0.0",
+  "description": "website for the infamous internet series",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zachary Feezor",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
