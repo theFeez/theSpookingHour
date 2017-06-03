@@ -6,6 +6,6 @@ app.get('/',function(req,res){
     res.sendFile(__dirname+'/index.html');
 });
 
-app.listen(500,function(){
+app.listen(process.env.PORT||500,function(){
     console.log('server listening');
 })
