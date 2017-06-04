@@ -10,19 +10,21 @@ var PostSchema = new mongoose.Schema({
 });
 var Post = mongoose.model('Post',PostSchema);
 app.use(express.static(__dirname+'/'));
+app.set('view engine', 'ejs');
 
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/index.html');
 });
 
-app.get('/test',function(req,res){
-    Post.find(function(err,posts){
+app.get('/test/:episode/:name',function(req,res){
+    Post.find({episode:episode,name:name},function(err,data){
         if(err){
             console.log(err);
-            res.end;
+            res.end();
         }
         else{
-            res.send(posts);
+            res.render('test',{post:data.text});
+
         }
     });
 
