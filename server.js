@@ -56,7 +56,7 @@ app.get('/archive',function(req,res){
 
             docs[i]={'episode':data[i].episode,'chrisTitle':data[i].chrisTitle,'chrisText':readMore(data[i].chrisText,90),'connorTitle':data[i].connorTitle,'connorText':readMore(data[i].connorText,90)};
         }
-        res.render('blog',{posts:docs});
+        res.render('archive',{posts:docs});
     });
 
 })
@@ -65,10 +65,18 @@ app.get('/archive',function(req,res){
 app.get('/posts/:episode/:name',function(req,res){
     var episode = req.params.episode;
     var name = req.params.name;
-    Post.findOne({'episode':episode,'name':name}).exec(function(err,data){
-        res.render('blogPost',{})
-    });
-    res.end();
+    if(name==='chris'){
+        Post.findOne({'episode':episode}).exec(function(err,data){
+            res.render('blogPost',{'title':data.chrisTitle,'name':name,'text':data.chrisText,'fullName':'Christopher Borges'});
+        });
+    }
+    else{
+        Post.findOne({'episode':episode}).exec(function(err,data){
+            res.render('blogPost',{'title':data.connorTitle,'name':name,'text':data.connorText,'fullName':'Connor Lloyd Falkner'});
+        });
+    }
+
+
 
 });
 

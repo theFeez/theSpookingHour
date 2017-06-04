@@ -1,0 +1,60 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title><%- title%></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/blogPost.css">
+
+    <nav class="navbar navbar-default navbar-static-top  ">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            <div class = "navbar-collapse collapse" id = "myNavbar">
+               <ul class="nav navbar-nav navbar-right">
+                   <li><a href="/home.html">Home</a></li>
+                   <li><a href="/about.html">About</a></li>
+                   <li><a href="/archive">Archive</a></li>
+
+               </ul>
+           </div>
+       </div>
+     </nav>
+ </head>
+
+<body>
+    <div class='container'>
+        <div class="row" style="margin-top:2%">
+            <div class="col-md-3 text-center">
+                <img class="img-circle" style="width:170px" src="/<%- name%>Edit.png">
+                <p style="margin-top:5%">
+                    <%- fullName%>
+                </p>
+            </div>
+            <div class="col-md-6 text-center">
+                <h1><%- title%></h1>
+                <div style="margin-top:5%">
+                    <%- text%>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ </body>
+
+ </html>

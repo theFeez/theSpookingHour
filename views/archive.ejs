@@ -1,0 +1,89 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <title>Blog</title>
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="blog.css">
+    <nav class="navbar navbar-default navbar-static-top  ">
+      <div class="container">
+          <div class="navbar-header">
+             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+             </button>
+
+           </div>
+           <div class = "navbar-collapse collapse" id = "myNavbar">
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="home.html">Home</a></li>
+                  <li><a href="about.html">About</a></li>
+                  <li><a href="/archive">Archive</a></li>
+
+              </ul>
+          </div>
+      </div>
+    </nav>
+ </head>
+
+ <body>
+
+     <div class="container">
+         <div class="row">
+             <div class="col-md-12 text-center">
+                 <h1  style="margin-top:10%">Blog Archive</h1>
+             </div>
+         </div>
+         <hr>
+            <%for(var i in posts){%>
+                <div class="row">
+                    <div class = "col-md-12 text-center">
+                        <h2>Episode <%= posts[i].episode%></h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                    <img class="img-circle" src="chrisEdit.png" style="width:120px">
+                        <hr style="width:50%">
+
+                        <h3><%- posts[i].chrisTitle%></h3>
+                        <p style="margin-top:5%">
+                            <%- posts[i].chrisText%>
+                        </p>
+                         <a href='/posts/<%- posts[i].episode%>/chris'>Continue Reading</a>
+                     </div>
+
+
+
+                     <div class="col-md-6 text-center">
+                         <img class="img-circle" src="connorEdit.png" style="width:120px">
+                         <hr style="width:50%">
+                         <h3><%- posts[i].connorTitle%></h3>
+                         <p style="margin-top:5%">
+                            <%- posts[i].connorText%>
+                         </p>
+                          <a href='/posts/<%- posts[i].episode%>/connor'>Continue Reading</a>
+                     </div>
+                 </div>
+            <% } %>
+
+
+
+
+
+
+
+</div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ </body>
+
+ </html>
