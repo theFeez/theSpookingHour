@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var url = process.env.mongoUrl;
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://theFeez:neonSlick@ds163301.mlab.com:63301/heroku_xpw4zd3n');
+mongoose.connect(process.env.mongoUrl);
 var PostSchema = new mongoose.Schema({
     episode: Number,
     chrisTitle: String,
@@ -49,7 +49,7 @@ app.get('/test/:episode/:name',function(req,res){
 
 });
 
-app.get('/blog',function(req,res){
+app.get('/archive',function(req,res){
     Post.find().sort({episode:-1}).exec(function(err,data){
         var docs = []
         for(var i in data){
@@ -65,6 +65,9 @@ app.get('/blog',function(req,res){
 app.get('/posts/:episode/:name',function(req,res){
     var episode = req.params.episode;
     var name = req.params.name;
+    Post.findOne({'episode':episode,'name':name}).exec(function(err,data){
+        res.render('blogPost',{})
+    });
     res.end();
 
 });
