@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var config = require('./config');
 var url = process.env.mongoUrl;
 var mongoose = require('mongoose');
 mongoose.connect(process.env.mongoUrl);
