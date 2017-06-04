@@ -17,6 +17,8 @@ app.get('/',function(req,res){
 });
 
 app.get('/test/:episode/:name',function(req,res){
+    var episode = req.params.episode;
+    var name = req.params.name;
     Post.find({'episode':episode,'name':name},function(err,data){
         if(err){
             console.log(err);
