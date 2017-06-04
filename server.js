@@ -3,13 +3,12 @@ var app = express();
 app.use(express.static(__dirname+'/'));
 
 app.get('/',function(req,res){
-    console.log("hi")
-    console.log(process.env.mongoUrl);
-    console.log("bye");
+    
     res.sendFile(__dirname+'/index.html');
 
 });
 
 app.listen(process.env.PORT||500,function(){
+    console.log(process.env.mongoUrl);
     console.log('server listening');
 })
