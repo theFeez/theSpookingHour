@@ -17,7 +17,7 @@ app.get('/',function(req,res){
 });
 
 app.get('/test/:episode/:name',function(req,res){
-    Post.find({episode:episode,name:name},function(err,data){
+    Post.find({'episode':episode,'name':name},function(err,data){
         if(err){
             console.log(err);
             res.end();
