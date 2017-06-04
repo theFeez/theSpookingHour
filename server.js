@@ -27,26 +27,7 @@ function readMore(string, maxWords) {
 }
 
 app.get('/',function(req,res){
-    res.sendFile(__dirname+'/index.html');
-});
-
-app.get('/test/:episode/:name',function(req,res){
-    var episode = req.params.episode;
-    var name = req.params.name;
-    Post.find({'episode':episode},function(err,data){
-        if(err){
-            console.log(err);
-            res.end();
-        }
-        else{
-            console.log(data);
-
-            res.render('test',{post:data[0].text});
-
-        }
-    });
-
-
+    res.sendFile(__dirname+'/views/index.html');
 });
 
 app.get('/archive',function(req,res){
