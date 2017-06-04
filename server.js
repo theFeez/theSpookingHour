@@ -25,6 +25,7 @@ app.get('/test/:episode/:name',function(req,res){
             res.end();
         }
         else{
+            console.log(data);
             res.render('test',{post:data.text});
 
         }
