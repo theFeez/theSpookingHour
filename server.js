@@ -65,6 +65,7 @@ app.get('/blog',function(req,res){
 app.get('/posts/:episode/:name',function(req,res){
     var episode = req.params.episode;
     var name = req.params.name;
+    res.end();
 
 });
 
