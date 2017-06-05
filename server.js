@@ -58,14 +58,24 @@ var Comment = mongoose.model('Comment',CommentSchema);
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/views/index.html');
 });
+
 app.get('/home',function(req,res){
-    Post.findOne({'episode':3}).exec(function(err,data){
+    Post.findOne({'episode':3,'name':'chris'}).exec(function(err,data){
         if(err){
             console.log(err);
-            res.end();
+            res.sendStatus(500);
         }
         else{
-            res.render('home',{'chrisTitle':data.chrisTitle,'chrisText':readMore(data.chrisText,90),'connorTitle':data.connorTitle,'connorText':readMore(data.connorText,90)});
+            Post.findOne({'episode':3,'name':'connor'}).exec(function(error,data2){
+                if(err){
+                    console.log(err);
+                    res.sendStatus(500);
+                }
+                else{
+                    res.render('home',{'chrisTitle':data.title,'chrisText':readMore(data.text,90),'connorTitle':data2.title,'connorText':readMore(data2.text,90)});
+                }
+            })
+
         }
     })
 
