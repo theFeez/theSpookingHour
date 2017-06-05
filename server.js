@@ -1,9 +1,9 @@
 var express = require('express');
 var app = express();
-//var config = require('./config');
+var config = require('./config');
 var url = process.env.mongoUrl;
 var mongoose = require('mongoose');
-mongoose.connect(process.env.mongoUrl);
+mongoose.connect(config.mongoUrl);
 var PostSchema = new mongoose.Schema({
     episode: Number,
     chrisTitle: String,
@@ -30,6 +30,18 @@ function readMore(string, maxWords) {
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/views/index.html');
 });
+app.get('/home',function(req,res){
+    Post.findOne({'episode':3}).exec(function(err,data){
+        if(err){
+            console.log(err);
+            res.end();
+        }
+        else{
+            res.render('home',{'chrisTitle':data.chrisTitle,'chrisText':readMore(data.chrisText,90),'connorTitle':data.connorTitle,'connorText':readMore(data.connorText,90)});
+        }
+    })
+
+})
 
 app.get('/archive',function(req,res){
     Post.find().sort({episode:-1}).exec(function(err,data){
