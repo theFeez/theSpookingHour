@@ -2,3 +2,7 @@ body{
     background:black;
     color:white;
 }
+
+hr{
+    border-color:#333333;
+}

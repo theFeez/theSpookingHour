@@ -55,6 +55,34 @@
             </div>
             <div class="col-md-3"></div>
         </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1>Comments</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <form class="text-center" action="/submitComment" method="post" id="commentForm">
+                    <div class="form-group">
+                        <textarea name="comment" class="form-control" rows="5"></textarea>
+                    </div>
+                    <input class="btn btn-default" type="submit" value="Submit">
+
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+
+
+        </div>
+
+        <div class="row">
+            <% for(var i in comments){%>
+                <p style="white-space: pre-wrap"><%- comments[i].text%></p>
+            <% }%>
+        </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
