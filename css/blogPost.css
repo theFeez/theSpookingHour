@@ -5,4 +5,23 @@ body{
 
 hr{
     border-color:#333333;
+    
+}
+
+.comment{
+    white-space: pre-wrap;
+    word-wrap:break-word;
+    padding-left:5%;
+    padding-right:5%;
+    padding-top:3%;
+    font-size: .9em;
+}
+
+#commentSeperator{
+    width:90%
+}
+
+#commentBox{
+    border-style:solid;
+    border-color:#333333;
 }

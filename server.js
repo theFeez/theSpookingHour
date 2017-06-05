@@ -1,11 +1,11 @@
 var express = require('express');
 var app = express();
-var config = require('./config');
+//var config = require('./config');
 var url = process.env.mongoUrl;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var xss = require('xss');
-mongoose.connect(config.mongoUrl);
+mongoose.connect(process.env.mongoUrl);
 
 
 
@@ -39,15 +39,16 @@ function convertUTCDateToLocalDate(date) {
 
 var PostSchema = new mongoose.Schema({
     episode: Number,
-    chrisTitle: String,
-    chrisText: String,
-    connorTitle: String,
-    connorText: String
+    name:String,
+    title:String,
+    text:String
 });
 
 var CommentSchema = new mongoose.Schema({
     id:Number,
     time:{ type: Date, default:convertUTCDateToLocalDate(new Date())},
+    postEpisode:Number,
+    postName:String,
     text:String
 });
 
@@ -71,13 +72,19 @@ app.get('/home',function(req,res){
 })
 
 app.get('/archive',function(req,res){
-    Post.find().sort({episode:-1}).exec(function(err,data){
-        var docs = []
+    Post.find({'name':'chris'}).sort({episode:-1}).exec(function(err,data){
+        var chrisPosts = []
         for(var i in data){
-
-            docs[i]={'episode':data[i].episode,'chrisTitle':data[i].chrisTitle,'chrisText':readMore(data[i].chrisText,90),'connorTitle':data[i].connorTitle,'connorText':readMore(data[i].connorText,90)};
+            chrisPosts[i]={'episode':data[i].episode,'title':data[i].title,'text':readMore(data[i].text,90)};
         }
-        res.render('archive',{posts:docs});
+        Post.find({'name':'connor'}).sort({episode:-1}).exec(function(error,data2){
+            var connorPosts=[];
+            for(var i in data2){
+                connorPosts[i]={'episode':data2[i].episode,'title':data2[i].title,'text':readMore(data2[i].text,90)}
+            }
+            res.render('archive',{'chrisPosts':chrisPosts,'connorPosts':connorPosts});
+        })
+
     });
 
 })
@@ -86,44 +93,39 @@ app.get('/archive',function(req,res){
 app.get('/posts/:episode/:name',function(req,res){
     var episode = req.params.episode;
     var name = req.params.name;
+    var fullName="";
     var comments = [];
-    Comment.find().exec(function(err,data){
-        for(var i in data){
-            comments[i]={'text':xss(data[i].text)};
-        }
-        if(name==='chris'){
-            Post.findOne({'episode':episode}).exec(function(err,data){
-                if(err){
-                    console.log(err);
-                    res.end();
-                }
-                res.render('blogPost',{'title':data.chrisTitle,'name':name,'text':data.chrisText,'fullName':'Christopher Borges','comments':comments});
-            });
+    if(name==='chris'){
+        fullName="Christopher Borges";
+    }
+    else if(name==='connor'){
+        fullName="Connor Lloyd Falkner"
+    }
+    Post.findOne({'episode':episode,'name':name}).exec(function(err,postDoc){
+        if(err){
+            console.log(err);
+            res.sendStatus(500);
         }
         else{
-            Post.findOne({'episode':episode}).exec(function(err,data){
-                if(err){
-                    console.log(err);
-                    res.end();
+            Comment.find({'postEpisode':episode,'postName':name}).exec(function(err,commentDocs){
+                for(var i in commentDocs){
+                    comments[i]={'text':xss(commentDocs[i].text)};
                 }
-                res.render('blogPost',{'title':data.connorTitle,'name':name,'text':data.connorText,'fullName':'Connor Lloyd Falkner'});
-            });
+                res.render('blogPost',{'title':postDoc.title,'name':postDoc.name,'text':postDoc.text,'fullName':fullName,'comments':comments,'episode':episode});
+            })
         }
-    });
-
-
-
-
+    })
 });
 
 app.post('/submitComment',function(req,res){
-    console.log(req.body);
-    var newComment = new Comment({'id':Math.floor(Math.random() * 1000000000),'text':req.body.comment});
+    var episode = req.body.postEpisode;
+    var name = req.body.postName;
+    var newComment = new Comment({'id':Math.floor(Math.random() * 1000000000),'postEpisode':episode,'postName':name,'text':req.body.comment});
     newComment.save(function(err){
         if(err){
             console.log(err);
         }
-        res.end();
+        res.redirect('/posts/'+xss(episode)+'/'+xss(name));
     })
 
 })

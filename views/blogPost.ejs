@@ -49,7 +49,7 @@
             <div class="col-md-6 text-center">
 
                 <h1><%- title%></h1>
-                <div style="margin-top:5%">
+                <div style="margin-top:5%;">
                     <%- text%>
                 </div>
             </div>
@@ -70,7 +70,8 @@
                         <textarea name="comment" class="form-control" rows="5"></textarea>
                     </div>
                     <input class="btn btn-default" type="submit" value="Submit">
-
+                    <input type="hidden" name="postEpisode" value="<%- episode%>">
+                    <input type="hidden" name="postName" value="<%- name%>">
                 </form>
             </div>
             <div class="col-md-3"></div>
@@ -78,10 +79,19 @@
 
         </div>
 
-        <div class="row">
-            <% for(var i in comments){%>
-                <p style="white-space: pre-wrap"><%- comments[i].text%></p>
-            <% }%>
+        <div class="row" style="margin-top:3%">
+
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div id="commentBox">
+                    <% for(var i in comments){%>
+                        <div class="comment"><%- comments[i].text%></div>
+                        <hr id="commentSeperator">
+                    <% }%>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+
         </div>
     </div>
 

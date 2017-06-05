@@ -41,10 +41,10 @@
              </div>
          </div>
          <hr>
-            <%for(var i in posts){%>
+            <%for(var i in chrisPosts){%>
                 <div class="row">
                     <div class = "col-md-12 text-center">
-                        <h2>Episode <%= posts[i].episode%></h2>
+                        <h2>Episode <%= chrisPosts[i].episode%></h2>
                     </div>
                 </div>
                 <div class="row">
@@ -52,11 +52,11 @@
                     <img class="img-circle" src="/assets/chrisEdit.png" style="width:120px">
                         <hr style="width:50%">
 
-                        <h3><%- posts[i].chrisTitle%></h3>
+                        <h3><%- chrisPosts[i].title%></h3>
                         <p style="margin-top:5%">
-                            <%- posts[i].chrisText%>
+                            <%- chrisPosts[i].text%>
                         </p>
-                         <a href='/posts/<%- posts[i].episode%>/chris'>Continue Reading</a>
+                         <a href='/posts/<%- chrisPosts[i].episode%>/chris'>Continue Reading</a>
                      </div>
 
 
@@ -64,21 +64,14 @@
                      <div class="col-md-6 text-center">
                          <img class="img-circle" src="/assets/connorEdit.png" style="width:120px">
                          <hr style="width:50%">
-                         <h3><%- posts[i].connorTitle%></h3>
+                         <h3><%- connorPosts[i].title%></h3>
                          <p style="margin-top:5%">
-                            <%- posts[i].connorText%>
+                            <%- connorPosts[i].text%>
                          </p>
-                          <a href='/posts/<%- posts[i].episode%>/connor'>Continue Reading</a>
+                          <a href='/posts/<%- connorPosts[i].episode%>/connor'>Continue Reading</a>
                      </div>
                  </div>
             <% } %>
-
-
-
-
-
-
-
 </div>
 
 
