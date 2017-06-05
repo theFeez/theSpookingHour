@@ -1,9 +1,14 @@
 body{
     background:black;
+    color:white;
+}
+
+hr{
+    border-color:#333333;
 }
 
 #episode{
-    
+
     color:white;
     font-size:1.5em;
 }

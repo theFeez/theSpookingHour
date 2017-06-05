@@ -3,7 +3,7 @@ var app = express();
 var config = require('./config');
 var url = process.env.mongoUrl;
 var mongoose = require('mongoose');
-mongoose.connect(config.mongoUrl);
+mongoose.connect(proces.env.mongoUrl);
 var PostSchema = new mongoose.Schema({
     episode: Number,
     chrisTitle: String,
