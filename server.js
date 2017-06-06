@@ -55,15 +55,27 @@ app.get('/home',function(req,res){
             res.sendStatus(500);
         }
         else{
-            Post.findOne({'episode':3,'name':'connor'}).exec(function(error,data2){
-                if(err){
-                    console.log(err);
-                    res.sendStatus(500);
-                }
-                else{
-                    res.render('home',{'chrisTitle':data.title,'chrisText':readMore(data.text,90),'connorTitle':data2.title,'connorText':readMore(data2.text,90)});
-                }
-            })
+            if(data){
+                Post.findOne({'episode':3,'name':'connor'}).exec(function(error,data2){
+                    if(err){
+                        console.log(err);
+                        res.sendStatus(500);
+                    }
+                    else{
+                        if(data2){
+                            res.render('home',{'chrisTitle':data.title,'chrisText':readMore(data.text,90),'connorTitle':data2.title,'connorText':readMore(data2.text,90)});
+                        }
+                        else{
+                            res.sendStatus(500);
+                        }
+
+                    }
+                })
+            }
+            else{
+                res.sendStatus(404);
+            }
+
 
         }
     })
@@ -72,17 +84,29 @@ app.get('/home',function(req,res){
 
 app.get('/archive',function(req,res){
     Post.find({'name':'chris'}).sort({episode:-1}).exec(function(err,data){
-        var chrisPosts = []
-        for(var i in data){
-            chrisPosts[i]={'episode':data[i].episode,'title':data[i].title,'text':readMore(data[i].text,90)};
+        if(err||(!data)){
+            res.sendStatus(500);
         }
-        Post.find({'name':'connor'}).sort({episode:-1}).exec(function(error,data2){
-            var connorPosts=[];
-            for(var i in data2){
-                connorPosts[i]={'episode':data2[i].episode,'title':data2[i].title,'text':readMore(data2[i].text,90)}
+        else{
+            var chrisPosts = []
+            for(var i in data){
+                chrisPosts[i]={'episode':data[i].episode,'title':data[i].title,'text':readMore(data[i].text,90)};
             }
-            res.render('archive',{'chrisPosts':chrisPosts,'connorPosts':connorPosts});
-        })
+            Post.find({'name':'connor'}).sort({episode:-1}).exec(function(error,data2){
+                if(err||(!data2)){
+                    res.sendStatus(500);
+                }
+                else{
+                    var connorPosts=[];
+                    for(var i in data2){
+                        connorPosts[i]={'episode':data2[i].episode,'title':data2[i].title,'text':readMore(data2[i].text,90)}
+                    }
+                    res.render('archive',{'chrisPosts':chrisPosts,'connorPosts':connorPosts});
+                }
+
+            })
+        }
+
 
     });
 
@@ -101,16 +125,22 @@ app.get('/posts/:episode/:name',function(req,res){
         fullName="Connor Lloyd Falkner"
     }
     Post.findOne({'episode':episode,'name':name}).exec(function(err,postDoc){
-        if(err){
+        if(err||(!postDoc)){
             console.log(err);
             res.sendStatus(500);
         }
         else{
             Comment.find({'postEpisode':episode,'postName':name}).exec(function(err,commentDocs){
-                for(var i in commentDocs){
-                    comments[i]={'text':xss(commentDocs[i].text),'time':commentDocs[i].time};
+                if(err||(!commentDocs)){
+                    res.sendStatus(500);
                 }
-                res.render('blogPost',{'title':postDoc.title,'name':postDoc.name,'text':postDoc.text,'fullName':fullName,'comments':comments,'episode':episode});
+                else{
+                    for(var i in commentDocs){
+                        comments[i]={'text':xss(commentDocs[i].text),'time':commentDocs[i].time};
+                    }
+                    res.render('blogPost',{'title':postDoc.title,'name':postDoc.name,'text':postDoc.text,'fullName':fullName,'comments':comments,'episode':episode});
+                }
+
             })
         }
     })
