@@ -26,17 +26,6 @@ function readMore(string, maxWords) {
         return string ;
 }
 
-function convertUTCDateToLocalDate(date) {
-    var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
-
-    var offset = date.getTimezoneOffset() / 60;
-    var hours = date.getHours();
-
-    newDate.setHours(hours - offset);
-
-    return newDate;
-}
-
 var PostSchema = new mongoose.Schema({
     episode: Number,
     name:String,
@@ -46,7 +35,7 @@ var PostSchema = new mongoose.Schema({
 
 var CommentSchema = new mongoose.Schema({
     id:Number,
-    time:{ type: Date, default:convertUTCDateToLocalDate(new Date())},
+    time:{ type: Date, default:new Date()},
     postEpisode:Number,
     postName:String,
     text:String
@@ -119,7 +108,7 @@ app.get('/posts/:episode/:name',function(req,res){
         else{
             Comment.find({'postEpisode':episode,'postName':name}).exec(function(err,commentDocs){
                 for(var i in commentDocs){
-                    comments[i]={'text':xss(commentDocs[i].text)};
+                    comments[i]={'text':xss(commentDocs[i].text),'time':commentDocs[i].time};
                 }
                 res.render('blogPost',{'title':postDoc.title,'name':postDoc.name,'text':postDoc.text,'fullName':fullName,'comments':comments,'episode':episode});
             })

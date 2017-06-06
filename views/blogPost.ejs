@@ -85,7 +85,11 @@
             <div class="col-md-4">
                 <div id="commentBox">
                     <% for(var i in comments){%>
-                        <div class="comment"><%- comments[i].text%></div>
+
+                            <p style="font-size:.6em"><%- comments[i].time%>
+                            <p class="comment"><%- comments[i].text%></p>
+
+
                         <hr id="commentSeperator">
                     <% }%>
                 </div>
