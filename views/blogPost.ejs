@@ -86,7 +86,16 @@
                 <div id="commentBox">
                     <% for(var i in comments){%>
 
-                            <p style="font-size:.6em"><%- comments[i].time%>
+                            <p style="font-size:.6em"><%- function convertUTCDateToLocalDate(comments[i].time) {
+                                var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+
+                                var offset = date.getTimezoneOffset() / 60;
+                                var hours = date.getHours();
+
+                                newDate.setHours(hours - offset);
+
+                                return newDate;
+                             }%>
                             <p class="comment"><%- comments[i].text%></p>
 
 
