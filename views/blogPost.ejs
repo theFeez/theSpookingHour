@@ -35,6 +35,17 @@
  </head>
 
 <body>
+    <% convertTime = function convertUTCDateToLocalDate(date) {
+        var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+
+        var offset = date.getTimezoneOffset() / 60;
+        var hours = date.getHours();
+
+        newDate.setHours(hours - offset);
+
+        return newDate;
+    }%>
+
     <div class="text-center">
         <img src='/assets/spookyEdit.jpg' style="height:127px">
     </div>
@@ -86,7 +97,7 @@
                 <div id="commentBox">
                     <% for(var i in comments){%>
 
-                            <p style="font-size:.6em"><%- comments[i].time%>
+                            <p style="font-size:.6em"><%- convertTime(comments[i].time)%>
                             <p class="comment"><%- comments[i].text%></p>
 
 

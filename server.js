@@ -25,16 +25,7 @@ function readMore(string, maxWords) {
 
         return string ;
 }
-function convertUTCDateToLocalDate(date) {
-    var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
 
-    var offset = date.getTimezoneOffset() / 60;
-    var hours = date.getHours();
-
-    newDate.setHours(hours - offset);
-
-    return newDate;
- }
 
 var PostSchema = new mongoose.Schema({
     episode: Number,
@@ -45,7 +36,7 @@ var PostSchema = new mongoose.Schema({
 
 var CommentSchema = new mongoose.Schema({
     id:Number,
-    time:{ type: Date, default:convertUTCDateToLocalDate(new Date())},
+    time:{ type: Date, default:new Date()},
     postEpisode:Number,
     postName:String,
     text:String
