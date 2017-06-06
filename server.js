@@ -36,7 +36,7 @@ var PostSchema = new mongoose.Schema({
 
 var CommentSchema = new mongoose.Schema({
     id:Number,
-    time:{ type: Date, default:convertUTCDateToLocalDate(new Date())},
+    time:{ type: Date, default:new Date()},
     postEpisode:Number,
     postName:String,
     text:String
