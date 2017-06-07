@@ -14,8 +14,8 @@ $(document).ready(function(){
 
     for(var i=0; i<arr.length; i++){
         var oldDate = new Date(arr[i].innerText)
-        var newDate = convertUTCDateToLocalDate(oldDate);
-        arr[i].innerText=newDate;
+        var newDate = new Date(oldDate);
+        //arr[i].innerText=newDate;
 
     }
 
