@@ -1,11 +1,11 @@
 var express = require('express');
 var app = express();
-//var config = require('./config');
+var config = require('./config');
 var url = process.env.mongoUrl;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var xss = require('xss');
-mongoose.connect(url);
+mongoose.connect(config.mongoUrl);
 
 
 
