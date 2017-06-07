@@ -10,6 +10,15 @@ function convertUTCDateToLocalDate(date) {
 }
 
 $(document).ready(function(){
-    var date = convertUTCDateToLocalDate($('#timeStamp'));
-    $('#timeStamp').text=date.toISOString():
+    var arr = $('.timeStamp');
+
+    for(var i=0; i<arr.length; i++){
+        var oldDate = new Date(arr[i].innerText)
+        var newDate = convertUTCDateToLocalDate(oldDate);
+        arr[i].innerText=newDate;
+
+    }
+
+
+
 });

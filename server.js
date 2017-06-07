@@ -5,7 +5,7 @@ var url = process.env.mongoUrl;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var xss = require('xss');
-mongoose.connect(process.env.mongoUrl);
+mongoose.connect(url);
 
 
 
