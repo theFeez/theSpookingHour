@@ -19,7 +19,7 @@ $(document).ready(function(){
         console.log(oldDate);
         var newDate = new Date(oldDate);
         console.log(newDate);
-        arr[i].innerText=newDate;
+        //arr[i].innerText=newDate;
 
     }
 
