@@ -1,5 +1,5 @@
 function convertUTCDateToLocalDate(date) {
-    var newDate = new Date(date.getTime());
+    var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
 
     var offset = date.getTimezoneOffset() / 60;
     var hours = date.getHours();
@@ -17,7 +17,7 @@ $(document).ready(function(){
         var oldDate = new Date(arr[i].innerText);
         console.log(oldDate.getTimezoneOffset());
         console.log(oldDate);
-        var newDate = convertUTCDateToLocalDate(oldDate);
+        var newDate = new Date(oldDate);
         console.log(newDate);
         arr[i].innerText=newDate;
 
