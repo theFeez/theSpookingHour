@@ -13,9 +13,11 @@ $(document).ready(function(){
     var arr = $('.timeStamp');
 
     for(var i=0; i<arr.length; i++){
-        var oldDate = new Date(arr[i].innerText)
-        var newDate = new Date(oldDate);
-        //arr[i].innerText=newDate;
+        var oldDate = arr[i].innerText
+        console.log(oldDate);
+        var newDate =oldDate.toLocaleString();
+        console.log(newDate);
+        arr[i].innerText=newDate;
 
     }
 
