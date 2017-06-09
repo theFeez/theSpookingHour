@@ -1,11 +1,11 @@
 var express = require('express');
 var app = express();
-//var config = require('./config');
+var config = require('./config');
 var url = process.env.mongoUrl;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var xss = require('xss');
-mongoose.connect(url);
+mongoose.connect(config.mongoUrl);
 
 
 
@@ -158,6 +158,10 @@ app.post('/submitComment',function(req,res){
         res.redirect('/posts/'+xss(episode)+'/'+xss(name));
     })
 
+})
+
+app.get('/episodes',function(req,res){
+    res.render('episodes.ejs');
 })
 
 app.listen(process.env.PORT||500,function(){
