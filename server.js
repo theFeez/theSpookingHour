@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-//var config = require('./config');
-var url = process.env.mongoUrl;
+var config = require('./config');
+var url = config.mongoUrl;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var xss = require('xss');
@@ -102,8 +102,20 @@ app.get('/archive',function(req,res){
                     for(var i in data2){
                         connorPosts[i]={'episode':data2[i].episode,'title':data2[i].title,'text':readMore(data2[i].text,90)}
                     }
-                    res.render('archive',{'chrisPosts':chrisPosts,'connorPosts':connorPosts});
+
                 }
+                Post.find({}).sort({episode:-1}).exec(function(error3,data3){
+                    if(error3||!data3){
+                        res.sendStatus(500);
+                    }
+                    else{
+                        var allPosts=[];
+                        for(var j in data3){
+                            allPosts[j]={'episode':data3[j].episode,'title':data3[j].title,'name':data3[j].name,'text':readMore(data3[j].text,90)};
+                        }
+                        res.render('archive',{'chrisPosts':chrisPosts,'connorPosts':connorPosts,'allPosts':allPosts});
+                    }
+                })
 
             })
         }
