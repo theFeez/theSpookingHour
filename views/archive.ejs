@@ -42,39 +42,47 @@
              </div>
          </div>
          <hr>
-            <%for(var i in chrisPosts){%>
+            <%for(var i in allPosts){%>
+                
                 <div class="row">
-                    <div class = "col-md-12 text-center">
-                        <h2>Episode <%= chrisPosts[i].episode%></h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                    <img class="img-circle" src="/assets/chrisEdit.png" style="width:120px">
+                    <div class="col-md-12 text-center">
+                        <img class="img-circle" src='/assets/<%-allPosts[i].name%>Edit.png' style="width:120px">
                         <hr style="width:50%">
 
-                        <h3><%- chrisPosts[i].title%></h3>
-                        <p><i>Christopher Borges</i></p>
-                        <p style="margin-top:5%">
-                            <%- chrisPosts[i].text%>
+                        <h3><%- allPosts[i].title%> - Episode <%= allPosts[i].episode%></h3>
+                        <p><i><% if(allPosts[i].name==='connor'){%>
+                                Connor Lloyd Falkner
+                                <%}
+                                else{%>
+                                    Chris Luis Borges
+                                    <%}%>
+
+
+                        </i></p>
+                        <p style="margin-top:2%">
+                            <%- allPosts[i].text%>
                         </p>
-                         <a href='/posts/<%- chrisPosts[i].episode%>/chris'>Continue Reading</a>
+                         <a href='/posts/<%- allPosts[i].episode%>/<%- allPosts[i].name%>'>Continue Reading</a>
                      </div>
 
 
 
-                     <div class="col-md-6 text-center">
+                     <!--<div class="col-md-6 text-center">
                          <img class="img-circle" src="/assets/connorEdit.png" style="width:120px">
                          <hr style="width:50%">
-                         <h3><%- connorPosts[i].title%></h3>
+                         <h3><%- allPosts[i].title%></h3>
                          <p><i>Connor Lloyd Falkner</i></p>
                          <p style="margin-top:5%">
-                            <%- connorPosts[i].text%>
+                            <%- allPosts[i].text%>
                          </p>
-                          <a href='/posts/<%- connorPosts[i].episode%>/connor'>Continue Reading</a>
+                          <a href='/posts/<%- allPosts[i].episode%>/connor'>Continue Reading</a>
                      </div>
-                 </div>
+                 </div> -->
+
             <% } %>
+            <% for(var i in allPosts){%>
+                <%console.log(allPosts[i].title);%>
+            <%}%>
 </div>
 
 

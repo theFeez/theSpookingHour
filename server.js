@@ -50,14 +50,14 @@ app.get('/',function(req,res){
 });
 
 app.get('/home',function(req,res){
-    Post.findOne({'episode':3,'name':'chris'}).exec(function(err,data){
+    Post.findOne({'episode':3.2,'name':'chris'}).exec(function(err,data){
         if(err){
             console.log(err);
             res.sendStatus(500);
         }
         else{
             if(data){
-                Post.findOne({'episode':3,'name':'connor'}).exec(function(error,data2){
+                Post.findOne({'episode':3.2,'name':'connor'}).exec(function(error,data2){
                     if(err){
                         console.log(err);
                         res.sendStatus(500);
@@ -102,8 +102,20 @@ app.get('/archive',function(req,res){
                     for(var i in data2){
                         connorPosts[i]={'episode':data2[i].episode,'title':data2[i].title,'text':readMore(data2[i].text,90)}
                     }
-                    res.render('archive',{'chrisPosts':chrisPosts,'connorPosts':connorPosts});
+
                 }
+                Post.find({}).sort({episode:-1}).exec(function(error3,data3){
+                    if(error3||!data3){
+                        res.sendStatus(500);
+                    }
+                    else{
+                        var allPosts=[];
+                        for(var j in data3){
+                            allPosts[j]={'episode':data3[j].episode,'title':data3[j].title,'name':data3[j].name,'text':readMore(data3[j].text,90)};
+                        }
+                        res.render('archive',{'chrisPosts':chrisPosts,'connorPosts':connorPosts,'allPosts':allPosts});
+                    }
+                })
 
             })
         }
