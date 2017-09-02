@@ -50,14 +50,14 @@ app.get('/',function(req,res){
 });
 
 app.get('/home',function(req,res){
-    Post.findOne({'episode':4,'name':'chris'}).exec(function(err,data){
+    Post.findOne({'episode':4.5,'name':'chris'}).exec(function(err,data){
         if(err){
             console.log(err);
             res.sendStatus(500);
         }
         else{
             if(data){
-                Post.findOne({'episode':4,'name':'connor'}).exec(function(error,data2){
+                Post.findOne({'episode':4.5,'name':'connor'}).exec(function(error,data2){
                     if(err){
                         console.log(err);
                         res.sendStatus(500);
