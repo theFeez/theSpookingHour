@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-//var config = require('./config');
-var url = process.env.mongoUrl;
+var config = require('./config');
+var url = config.mongoUrl;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var xss = require('xss');
@@ -42,8 +42,15 @@ var CommentSchema = new mongoose.Schema({
     text:String
 });
 
+var ZachSchema = new mongoose.Schema({
+    episode:Number,
+    text:String
+},
+{collection:'zachAttackPosts'});
+
 var Post = mongoose.model('Post',PostSchema);
 var Comment = mongoose.model('Comment',CommentSchema);
+var Zach = mongoose.model('zachAttackPost',ZachSchema)
 
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/views/index.html');
@@ -174,6 +181,20 @@ app.post('/submitComment',function(req,res){
 
 app.get('/episodes',function(req,res){
     res.render('episodes.ejs');
+})
+
+app.get('/zachAttack',function(req,res){
+    Zach.findOne({'episode':1}).exec(function(err,doc){
+        if(err||(!doc)){
+            console.log('error');
+            res.sendStatus(500);
+        }
+        else{
+            
+            res.render('zachAttack',{'zachPost':doc.text});
+        }
+    });
+
 })
 
 app.listen(process.env.PORT||500,function(){
