@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-var config = require('./config');
-var url = config.mongoUrl;
+//var config = require('./config');
+var url = process.env.mongoUrl;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var xss = require('xss');
@@ -190,7 +190,7 @@ app.get('/zachAttack',function(req,res){
             res.sendStatus(500);
         }
         else{
-            
+
             res.render('zachAttack',{'zachPost':doc.text});
         }
     });
