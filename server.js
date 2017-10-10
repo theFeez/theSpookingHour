@@ -44,7 +44,8 @@ var CommentSchema = new mongoose.Schema({
 
 var ZachSchema = new mongoose.Schema({
     episode:Number,
-    text:String
+    text:String,
+    link:String
 },
 {collection:'zachAttackPosts'});
 
@@ -184,14 +185,14 @@ app.get('/episodes',function(req,res){
 })
 
 app.get('/zachAttack',function(req,res){
-    Zach.findOne({'episode':1}).exec(function(err,doc){
+    Zach.find().exec(function(err,doc){
         if(err||(!doc)){
             console.log('error');
             res.sendStatus(500);
         }
         else{
 
-            res.render('zachAttack',{'zachPost':doc.text});
+            res.render('zachAttack',{'zachPosts':doc});
         }
     });
 
