@@ -5,6 +5,7 @@ var url = config.mongoUrl;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var xss = require('xss');
+var path=require('path');
 mongoose.connect(url);
 
 
@@ -54,8 +55,16 @@ var Comment = mongoose.model('Comment',CommentSchema);
 var Zach = mongoose.model('zachAttackPost',ZachSchema)
 
 app.get('/',function(req,res){
-    res.sendFile(__dirname+'/public/views/index.html');
+    res.sendFile(__dirname+'/public/index.html');
 });
+
+app.get('/about',function(req,res){
+    res.sendFile(__dirname+'/public/index.html');
+});
+
+
+
+
 
 app.get('/latestPosts',function(req,res){
     Post.findOne({'episode':4.5,'name':'chris'}).exec(function(err,data){
@@ -197,6 +206,8 @@ app.get('/zachAttack',function(req,res){
     });
 
 })
+
+
 
 app.listen(process.env.PORT||500,function(){
 
