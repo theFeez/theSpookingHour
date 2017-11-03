@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-//var config = require('./config');
-var url = process.env.mongoUrl;
+var config = require('./config');
+var url = config.mongoUrl;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var xss = require('xss');
@@ -9,7 +9,7 @@ mongoose.connect(url);
 
 
 
-app.use(express.static(__dirname+'/'));
+app.use(express.static(__dirname+'/public'));
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended:true,limit:'50mb'}));
@@ -54,10 +54,10 @@ var Comment = mongoose.model('Comment',CommentSchema);
 var Zach = mongoose.model('zachAttackPost',ZachSchema)
 
 app.get('/',function(req,res){
-    res.sendFile(__dirname+'/views/index.html');
+    res.sendFile(__dirname+'/public/views/index.html');
 });
 
-app.get('/home',function(req,res){
+app.get('/latestPosts',function(req,res){
     Post.findOne({'episode':4.5,'name':'chris'}).exec(function(err,data){
         if(err){
             console.log(err);
@@ -72,7 +72,7 @@ app.get('/home',function(req,res){
                     }
                     else{
                         if(data2){
-                            res.render('home',{'chrisTitle':data.title,'chrisText':readMore(data.text,90),'connorTitle':data2.title,'connorText':readMore(data2.text,90)});
+                            res.send({'chrisTitle':data.title,'chrisText':readMore(data.text,90),'connorTitle':data2.title,'connorText':readMore(data2.text,90)});
                         }
                         else{
                             res.sendStatus(500);

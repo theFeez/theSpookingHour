@@ -1,0 +1,48 @@
+
+
+
+     <div class="container">
+         <div class = "row">
+             <div class="col-md-3"></div>
+             <div class="col-md-6 text-center" id="episode">
+
+                 <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="854" height="480" src="https://www.youtube.com/embed/a_k4RgzlHqM" frameborder="0" allowfullscreen></iframe>
+                </div>
+                 <p>Spooking Hour got weird this week, and Connor won't believe me.</p>
+                 <p>Stay tuned for Zach Attack, a blog written by yours truly, since Connor refuses to acknowledge the severity of the situation.</p>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 text-center">
+            <img class="img-circle" src="/assets/chrisEdit.png" style="width:120px">
+                <hr style="width:50%">
+
+                <h3>{{latest.chrisTitle}}</h3>
+                <p><i>Christopher Borges</i></p>
+                <p>
+                    <div ng-bind-html="latest.chrisText">
+                    </div>
+                </p>
+                 <a href='/posts/4.5/chris'>Continue Reading</a>
+             </div>
+
+
+
+             <div class="col-md-6 text-center">
+                 <img class="img-circle" src="/assets/connorEdit.png" style="width:120px">
+                 <hr style="width:50%">
+                 <h3>{{latest.connorTitle}}</h3>
+                 <p><i>Connor Lloyd Falkner</i></p>
+                 <p>
+                    <div ng-bind-html="latest.connorText">
+                    </div>
+                 </p>
+                  <a href='/posts/4.5/connor'>Continue Reading</a>
+             </div>
+         </div>
+
+
+     </div>
