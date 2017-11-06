@@ -5,7 +5,7 @@ angular.module('BlogService',[]).factory('Blog',['$http',function($http){
         },
 
         getPost : function(episode,name){
-            return $http.get('/posts/'+episode+'/'+name);
+            return $http.get('/getPost/'+episode+'/'+name);
         },
 
         getLatest : function(){

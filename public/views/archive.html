@@ -17,7 +17,7 @@
                         <p><i>{{post.name==="connor"?"Connor Lloyd Falkner":"Christopher Borges"}}</i></p>
                         <p style="margin-top:2%" ng-bind-html="post.text"></p>
 
-                         <a href='/posts/'+{{post.episode}}+'/'+{{post.name}}>Continue Reading</a>
+                         <a ng-href='/posts/{{post.episode}}/{{post.name}}'>Continue Reading</a>
                      </div>
 
 

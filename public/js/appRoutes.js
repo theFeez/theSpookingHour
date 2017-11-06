@@ -20,6 +20,10 @@ angular.module('appRoutes',[]).config(['$routeProvider','$locationProvider',func
             templateUrl:'views/zachAttack.html',
             controller:'ZachAttackController'
         })
+        .when('/posts/:episode/:name',{
+            templateUrl:'views/blogPost.html',
+            controller:'BlogPostController'
+        })
 
         $locationProvider.html5Mode(true);
 }])

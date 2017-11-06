@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-//var config = require('./config');
-var url = process.env.mongoUrl;
+var config = require('./config');
+var url = config.mongoUrl;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var xss = require('xss');
@@ -73,7 +73,9 @@ app.get('/episodes',function(req,res){
 app.get('/zachAttack',function(req,res){
     res.sendFile(__dirname+'/public/index.html');
 })
-
+app.get('/posts/:episode/:name',function(req,res){
+    res.sendFile(__dirname+'/public/index.html');
+})
 
 
 
@@ -155,7 +157,7 @@ app.get('/archive',function(req,res){
 })
 
 
-app.get('/posts/:episode/:name',function(req,res){
+app.get('/getPost/:episode/:name',function(req,res){
     var episode = req.params.episode;
     var name = req.params.name;
     var fullName="";
@@ -180,7 +182,7 @@ app.get('/posts/:episode/:name',function(req,res){
                     for(var i in commentDocs){
                         comments[i]={'text':xss(commentDocs[i].text),'time':commentDocs[i].time};
                     }
-                    res.render('blogPost',{'title':postDoc.title,'name':postDoc.name,'text':postDoc.text,'fullName':fullName,'comments':comments,'episode':episode});
+                    res.send({'title':postDoc.title,'name':postDoc.name,'text':postDoc.text,'fullName':fullName,'comments':comments,'episode':episode});
                 }
 
             })
@@ -196,7 +198,7 @@ app.post('/submitComment',function(req,res){
         if(err){
             console.log(err);
         }
-        res.redirect('/posts/'+xss(episode)+'/'+xss(name));
+        res.redirect('/posts/'+episode+'/'+name);
     })
 
 })
