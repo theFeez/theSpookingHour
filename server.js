@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-var config = require('./config');
-var url = config.mongoUrl;
+//var config = require('./config');
+var url = process.env.mongoUrl;
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var xss = require('xss');
@@ -61,6 +61,18 @@ app.get('/',function(req,res){
 app.get('/about',function(req,res){
     res.sendFile(__dirname+'/public/index.html');
 });
+
+app.get('/blog',function(req,res){
+    res.sendFile(__dirname+'/public/index.html');
+});
+
+app.get('/episodes',function(req,res){
+    res.sendFile(__dirname+'/public/index.html');
+})
+
+app.get('/zachAttack',function(req,res){
+    res.sendFile(__dirname+'/public/index.html');
+})
 
 
 
@@ -130,7 +142,7 @@ app.get('/archive',function(req,res){
                         for(var j in data3){
                             allPosts[j]={'episode':data3[j].episode,'title':data3[j].title,'name':data3[j].name,'text':readMore(data3[j].text,90)};
                         }
-                        res.render('archive',{'chrisPosts':chrisPosts,'connorPosts':connorPosts,'allPosts':allPosts});
+                        res.send({'chrisPosts':chrisPosts,'connorPosts':connorPosts,'allPosts':allPosts});
                     }
                 })
 
@@ -189,11 +201,9 @@ app.post('/submitComment',function(req,res){
 
 })
 
-app.get('/episodes',function(req,res){
-    res.render('episodes.ejs');
-})
 
-app.get('/zachAttack',function(req,res){
+
+app.get('/zachPosts',function(req,res){
     Zach.find().exec(function(err,doc){
         if(err||(!doc)){
             console.log('error');
@@ -201,7 +211,7 @@ app.get('/zachAttack',function(req,res){
         }
         else{
 
-            res.render('zachAttack',{'zachPosts':doc});
+            res.send({'zachPosts':doc});
         }
     });
 
