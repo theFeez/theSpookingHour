@@ -1,0 +1,61 @@
+
+    <div class='container'>
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <img class="img-circle" style="width:170px" src="/assets/{{name}}Edit.png">
+                <p style="margin-top:5%">
+                    {{fullName}}
+                </p>
+            </div>
+            <div class="col-md-6 text-center">
+
+                <h1>{{title}}</h1>
+                <div style="margin-top:5%;" ng-bind-html="text">
+
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1>Comments</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <form class="text-center" action="/submitComment" method="post" id="commentForm">
+                    <div class="form-group">
+                        <textarea name="comment" class="form-control" rows="5"></textarea>
+                    </div>
+                    <input class="btn btn-default" type="submit" value="Submit">
+                    <input type="hidden" name="postEpisode" value="{{episode}}">
+                    <input type="hidden" name="postName" value="{{name}}">
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+
+
+        </div>
+
+        <div class="row" style="margin-top:3%">
+
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div id="commentBox">
+                    <div ng-repeat="comment in comments">
+
+                            <span class="timeStamp" style="font-size:.6em">{{comment.time}}</span>
+                            <p class="comment" ng-bind-html = "comment.text"></p>
+
+
+                        <hr id="commentSeperator">
+
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+
+        </div>
+    </div>
